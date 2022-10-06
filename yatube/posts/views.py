@@ -83,9 +83,9 @@ def post_create(request):
     if request.method == 'POST':
         form = PostForm(request.POST)    
         if form.is_valid():
-            text = form.cleaned_data['text']
-            group = form.cleaned_data['group']
-            author = request.user
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
             return redirect('posts:profile', request.user)
         return render(request, 'posts/create_post.html', {'form': form})
     
