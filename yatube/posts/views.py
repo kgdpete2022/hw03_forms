@@ -65,7 +65,7 @@ def post_detail(request, post_id):
     username = post.author.username
     posts_count = Post.objects.filter(author=post.author).count()
     user_posts_link = 'profile/' + username
-    context  = {
+    context = {
         'post': post,
         'author_name': author_name,
         'username': username,
