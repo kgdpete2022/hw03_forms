@@ -23,6 +23,7 @@ def index(request):
     }
     return render(request, template, context)
 
+
 def group_posts(request, slug):
     template = 'posts/group_list.html'
     group = get_object_or_404(Group, slug=slug)
@@ -36,6 +37,7 @@ def group_posts(request, slug):
         'page_obj': page_obj,
     }
     return render(request, template, context)
+
 
 def profile(request, username):
     template = 'posts/profile.html'
@@ -54,6 +56,7 @@ def profile(request, username):
         'author': author,
     }
     return render(request, template, context)
+
 
 def post_detail(request, post_id):
     template = 'posts/post_detail.html'
