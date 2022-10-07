@@ -1,20 +1,16 @@
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .models import Post, Group, User
-
-from .forms import PostForm
-
 from django.core.paginator import Paginator
 
 from django.contrib.auth.decorators import login_required
 
+from .models import Post, Group, User
 
+from .forms import PostForm
 
 
 POSTS_PER_PAGE = 10
 
-
-# Create your views here.
 
 def index(request):
     template = 'posts/index.html'
@@ -44,12 +40,11 @@ def group_posts(request, slug):
 def profile(request, username):
     template = 'posts/profile.html'
     author = get_object_or_404(User, username=username)
-    posts_list = Post.objects.filter(author=author)    
+    posts_list = Post.objects.filter(author=author)
     paginator = Paginator(posts_list, POSTS_PER_PAGE)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     posts_count = posts_list.count()
-    
 
     context = {
         'username': username,
@@ -57,7 +52,6 @@ def profile(request, username):
         'page_obj': page_obj,
         'posts_count': posts_count,
         'author': author,
-        
     }
     return render(request, template, context)
 
@@ -67,7 +61,7 @@ def post_detail(request, post_id):
     author_name = post.author.get_full_name
     username = post.author.username
     posts_count = Post.objects.filter(author=post.author).count()
-    user_posts_link = 'profile/' + username   
+    user_posts_link = 'profile/' + username
     context  = {
         'post': post,
         'author_name': author_name,
@@ -81,14 +75,13 @@ def post_detail(request, post_id):
 @login_required
 def post_create(request):
     if request.method == 'POST':
-        form = PostForm(request.POST)    
+        form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
             post.save()
             return redirect('posts:profile', request.user)
         return render(request, 'posts/create_post.html', {'form': form})
-    
     form = PostForm()
     return render(request, 'posts/create_post.html', {'form': form})
 
