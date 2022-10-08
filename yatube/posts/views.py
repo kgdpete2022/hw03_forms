@@ -76,12 +76,12 @@ def post_detail(request, post_id):
 
 
 @login_required
-def post_create(request):    
+def post_create(request):
     form = PostForm(request.POST or None)
     template = 'posts/create_post.html'
     context = {
         'form': form
-        }
+    }
     if form.is_valid():
         post = form.save(commit=False)
         post.author = request.user
@@ -102,7 +102,7 @@ def post_edit(request, post_id):
         'form': form,
         'is_edit': is_edit,
         'post_id': post_id,
-        }
+    }
     if form.is_valid():
         form.save()
         return redirect('posts:post_detail', post_id)

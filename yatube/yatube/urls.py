@@ -21,5 +21,5 @@ urlpatterns = [
     path('group/<slug:slug>/', include('posts.urls', namespace='posts')),
     path('auth/', include('users.urls', namespace='users')),
     path('auth/', include('django.contrib.auth.urls')),
-    path('about/', include('about.urls', namespace='about')),    
+    path('about/', include('about.urls', namespace='about')),
 ]
