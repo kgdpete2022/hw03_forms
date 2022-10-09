@@ -91,8 +91,7 @@ def post_create(request):
 
 
 @login_required
-def post_edit(request, post_id):
-    is_edit = True
+def post_edit(request, post_id):    
     post = get_object_or_404(Post, pk=post_id)
     if post.author != request.user:
         return redirect('posts:post_detail', post_id)
@@ -100,7 +99,7 @@ def post_edit(request, post_id):
     template = 'posts/create_post.html'
     context = {
         'form': form,
-        'is_edit': is_edit,
+        'is_edit': True,
         'post_id': post_id,
     }
     if form.is_valid():
