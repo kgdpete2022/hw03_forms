@@ -25,6 +25,13 @@
           все посты пользователя
         </a>
       </li>
+      {% if is_author %}
+      <li class="list-group-item">
+        <a href="{% url 'posts:post_edit' post_id %}">
+          редактировать пост
+        </a>
+      </li>
+      {% endif %}
     </ul>
   </aside>
   <article class="col-12 col-md-9">

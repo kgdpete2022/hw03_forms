@@ -65,12 +65,17 @@ def post_detail(request, post_id):
     username = post.author.username
     posts_count = Post.objects.filter(author=post.author).count()
     user_posts_link = 'profile/' + username
+    is_author = False
+    if post.author == request.user:
+        is_author = True
     context = {
         'post': post,
         'author_name': author_name,
         'username': username,
         'posts_count': posts_count,
         'user_posts_link': user_posts_link,
+        'post_id': post_id,
+        'is_author': is_author,
     }
     return render(request, template, context)
 
