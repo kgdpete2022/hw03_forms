@@ -23,10 +23,15 @@ class PostModelTest(TestCase):
 
 
     def test_models_have_correct_object_names(self):
-        """Проверяем, что у моделей корректно работает __str__."""
-        post = PostModelTest.post
-        group = PostModelTest.group
-        length_post_print_text = 15 # Пока ничего не понял, просто вбил предполагаемое количество символов
-        length_group_title = 15 # Пока ничего не понял, просто вбил количество символов
-        self.assertEqual(length_post_print_text, 15)
-        self.assertEqual(length_group_title, len(group.title))
+            """Проверяем, что у моделей корректно работает __str__."""
+            
+            group = PostModelTest.group
+            expected_group_title = group.title
+            real_group_title = group.title
+            self.assertEqual(expected_group_title, str(real_group_title))
+
+            post = PostModelTest.post
+            expected_post_representation = post.text[:15]
+            real_post_representation = post
+            self.assertEqual(expected_post_representation, str(real_post_representation))
+    
